@@ -1,12 +1,11 @@
-
-const App = () => {
-  return (
-<div>
+import React from "react";
+import AppRoutes from "./Pages/AppRoutes";
 
 
-
-</div>
+export default function App(){
+  return(
+    <>
+    <AppRoutes/>
+    </>
   )
 }
-
-export default App
