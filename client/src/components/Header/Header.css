@@ -25,4 +25,21 @@
     height: 100%;        
     object-fit: contain; 
   }
+
+  .menu-button {
+    background-color: #D4AF37;
+    color: black;
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.menu-button:hover {
+    background-color: #B8860B;
+}
+
   
