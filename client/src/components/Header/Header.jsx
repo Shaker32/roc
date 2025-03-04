@@ -1,21 +1,35 @@
 import React from "react";
 import "../Header/Header.css"; 
-import logo from "../../assets/Img/ExotiX.png";
+import logo from "../../assets/img/logoWhite.png";
+import kosik from "../../assets/img/kosik.png";
+
+
 
 const HomePage = () => {
   return (
     <div>
      
       <header className="header">
-      <img src="/Img/ExotiX.png" alt="ExotiX Logo" />
+
+  <a href="/" className="logo">
+          <img src={logo} alt="logo" className="logo" />
+        </a>
       
-        <h1>ExotiX</h1>
         <nav>
-          <a href="/" className="menu-button">Domů</a>
-          <a href="Obchod" className="menu-button">Obchod</a>
-          <a href="#contact" className="menu-button">Kontakt</a>
-          <a href="#about" className="menu-button">O nás</a>
+
+          <a href="obchod" className="menu-button">Obchod zvířat</a>
+          <a href="chovatelske-potreby" className="menu-button">Chovatelské potřeby</a>
+          <a href="prodej-zvire" className="menu-button">Prodej zvíře</a>
+          <a href="kontakt" className="menu-button">Kontakt</a>
+          <a href="recenze" className="menu-button">Recenze</a>
+          <a href="o-nas" className="menu-button">O nás</a>
+
         </nav>
+
+        <a href="kosik" className="cart-icon">
+          <img src={kosik} alt="košík" className="cart-image" />
+        </a>
+ 
       </header>
     </div>
   );

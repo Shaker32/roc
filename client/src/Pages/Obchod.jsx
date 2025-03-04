@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
 import "./Obchod.css";
 
 const animals = [
@@ -10,7 +11,6 @@ const animals = [
   { id: 5, name: "sklípkan největší", category: "Bezobraltí", image: "../src/assets/img/sklipkan.png"},
   { id: 6, name: "skokan zelený", category: "Obojživelnící", image: "../src/assets/img/skokan.png"},
   { id: 7, name: "chobotnice kroužkovaná", category: "Vodní živočichové", image: "../src/assets/img/chobotniceK.png" },
-
 ];
 
 export default function Obchod() {
@@ -33,7 +33,7 @@ export default function Obchod() {
             <option value="Pták">Ptáci</option>
             <option value="Savci">Savci</option>
             <option value="Bezobraltí">Bezobraltí</option>
-            <option value="Obojživelnící">Obojživelnící</option>¨
+            <option value="Obojživelnící">Obojživelnící</option>
             <option value="Vodní živočichové">Vodní živočichové</option>
           </select>
         </div>
@@ -47,6 +47,7 @@ export default function Obchod() {
           ))}
         </div>
       </div>
+      <Footer /> 
     </div>
   );
 }
