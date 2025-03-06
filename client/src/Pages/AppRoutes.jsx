@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import Obchod from "./Obchod";
-
 import ChovatelskePotreby from "./ChovatelskePotreby";
+import DetailProduktu from "./DetailProduktu"; 
 import ProdejZvire from "./ProdejZvire";
 import Kontakt from "./Kontakt";
 import Recenze from "./Recenze";
@@ -20,6 +20,7 @@ export default function AppRoutes() {
       <Route path="/" element={<HomePage/>} />
       <Route path="/obchod" element={<Obchod/>} />
       <Route path="/chovatelske-potreby" element={<ChovatelskePotreby/>} />
+      <Route path="/produkt/:id" element={<DetailProduktu />} /> 
       <Route path="/prodej-zvire" element={<ProdejZvire/>} />
       <Route path="/kontakt" element={<Kontakt/>} />
       <Route path="/recenze" element={<Recenze/>} />

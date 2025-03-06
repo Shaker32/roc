@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./Obchod.css";
@@ -14,7 +15,15 @@ const animals = [
 ];
 
 export default function Obchod() {
-  const [category, setCategory] = useState("Vše");
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const initialCategory = params.get("category") || "Vše";
+
+  const [category, setCategory] = useState(initialCategory);
+
+  useEffect(() => {
+    setCategory(initialCategory);
+  }, [initialCategory]);
 
   const filteredAnimals = category === "Vše"
     ? animals
@@ -27,7 +36,7 @@ export default function Obchod() {
         <h2>Obchod s exotickými zvířaty</h2>
         <div className="filter-container">
           <label>Filtr podle kategorie:</label>
-          <select onChange={(e) => setCategory(e.target.value)}>
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="Vše">Vše</option>
             <option value="Plaz">Plazi</option>
             <option value="Pták">Ptáci</option>
