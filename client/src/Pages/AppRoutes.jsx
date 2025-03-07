@@ -3,7 +3,7 @@ import HomePage from "./HomePage";
 import Obchod from "./Obchod";
 import ChovatelskePotreby from "./ChovatelskePotreby";
 import DetailProduktu from "./DetailProduktu"; 
-import ProdejZvire from "./ProdejZvire";
+import DetailZvirete from "./DetailZvirete"; 
 import Kontakt from "./Kontakt";
 import Recenze from "./Recenze";
 import ONas from "./ONas";
@@ -19,9 +19,10 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/" element={<HomePage/>} />
       <Route path="/obchod" element={<Obchod/>} />
+      <Route path="/zvire/:id" element={<DetailZvirete />} />
       <Route path="/chovatelske-potreby" element={<ChovatelskePotreby/>} />
       <Route path="/produkt/:id" element={<DetailProduktu />} /> 
-      <Route path="/prodej-zvire" element={<ProdejZvire/>} />
+      <Route path="/detail-zvirete" element={<DetailZvirete/>} />
       <Route path="/kontakt" element={<Kontakt/>} />
       <Route path="/recenze" element={<Recenze/>} />
       <Route path="/o-nas" element={<ONas/>} />
