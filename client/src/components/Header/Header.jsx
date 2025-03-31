@@ -19,7 +19,6 @@ const HomePage = () => {
 
           <a href="obchod" className="menu-button">Obchod zvířat</a>
           <a href="chovatelske-potreby" className="menu-button">Chovatelské potřeby</a>
-          <a href="prodej-zvire" className="menu-button">Prodej zvíře</a>
           <a href="kontakt" className="menu-button">Kontakt</a>
           <a href="recenze" className="menu-button">Recenze</a>
           <a href="o-nas" className="menu-button">O nás</a>

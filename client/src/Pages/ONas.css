@@ -1,0 +1,51 @@
+.onas-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .onas-container h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .onas-container h2 {
+    font-size: 2rem;
+    color: #444;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .onas-container p {
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .onas-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .onas-container ul li {
+    font-size: 1.2rem;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  .onas-container a {
+    color: #28a745;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .onas-container a:hover {
+    text-decoration: underline;
+  }
+  
