@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const animalRoutes = require("./routes/animalRoutes");
+const productRoutes = require("./routes/productRoutes");
+
 mongoose
 .connect(`mongodb+srv://admin:adminadmin@cluster0.5o1dq.mongodb.net/rocnikovka?retryWrites=true&w=majority&appName=Cluster0`)
 .then(() => console.log("Database connected"))
@@ -28,6 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use("/api/animals", animalRoutes);
+app.use("/api/products", productRoutes);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

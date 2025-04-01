@@ -1,21 +1,26 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./ChovatelskePotreby.css";
 
-const products = [
-  { id: 1, name: "Terárium XL", category: "Terária", image: "/assets/img/terarium.png" },
-  { id: 2, name: "Klec pro papoušky", category: "Klece", image: "/assets/img/klec.png" },
-  { id: 3, name: "Akvarijní filtr", category: "Akvária", image: "/assets/img/filtr.png" },
-  { id: 4, name: "UVB žárovka", category: "Osvětlení", image: "/assets/img/uvb.png" },
-  { id: 5, name: "Topný kámen", category: "Vyhřívání", image: "/assets/img/kamen.png" },
-  { id: 6, name: "Vitamíny pro plazy", category: "Krmivo", image: "/assets/img/vitaminy.png" },
-];
-
 export default function ChovatelskePotreby() {
-  const [category, setCategory] = useState("Vše");
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const initialCategory = params.get("category") || "Vše";
 
+  const [category, setCategory] = useState(initialCategory);
+  const [products, setProducts] = useState([]);
+
+  
+  useEffect(() => {
+    fetch("http://localhost:3000/api/products")  
+      .then((res) => res.json())
+      .then((data) => setProducts(data))
+      .catch((err) => console.error("Chyba při načítání produktů:", err));
+  }, []);
+
+ 
   const filteredProducts = category === "Vše"
     ? products
     : products.filter(product => product.category === category);
@@ -29,7 +34,7 @@ export default function ChovatelskePotreby() {
 
         <div className="filter-container">
           <label>Filtr podle kategorie:</label>
-          <select onChange={(e) => setCategory(e.target.value)}>
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
             <option value="Vše">Vše</option>
             <option value="Terária">Terária</option>
             <option value="Klece">Klece</option>
@@ -41,15 +46,20 @@ export default function ChovatelskePotreby() {
         </div>
 
         <div className="product-list">
-          {filteredProducts.map((product) => (
-            <div key={product.id} className="product-card">
-              <Link to={`/produkt/${product.id}`}>
-                <img src={product.image} alt={product.name} />
-                <h3>{product.name}</h3>
-                <p>{product.category}</p>
-              </Link>
-            </div>
-          ))}
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <div key={product.id} className="product-card">
+                <Link to={`/produkt/${product.id}`} className="no-decoration">
+                  <img src={product.image} alt={product.name} />
+                  <h3>{product.name}</h3>
+                  <p>{product.category}</p>
+                  <p className="price">{product.price}</p>
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p>Žádné produkty v této kategorii.</p>
+          )}
         </div>
       </div>
       <Footer />

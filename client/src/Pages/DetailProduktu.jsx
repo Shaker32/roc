@@ -1,25 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./DetailProduktu.css";
 
-
-const products = [
-  { id: 1, name: "Terárium XL", category: "Terária", image: "/assets/img/terarium.png", description: "Velké terárium ideální pro hady a ještěry.", price: "3 500 Kč" },
-  { id: 2, name: "Klec pro papoušky", category: "Klece", image: "/assets/img/klec.png", description: "Prostorná klec vhodná pro velké papoušky.", price: "2 000 Kč" },
-  { id: 3, name: "Akvarijní filtr", category: "Akvária", image: "/assets/img/filtr.png", description: "Výkonný filtr pro čistou vodu ve vašem akváriu.", price: "1 200 Kč" },
-  { id: 4, name: "UVB žárovka", category: "Osvětlení", image: "/assets/img/uvb.png", description: "Důležité UVB světlo pro zdraví plazů.", price: "700 Kč" },
-  { id: 5, name: "Topný kámen", category: "Vyhřívání", image: "/assets/img/kamen.png", description: "Zajišťuje optimální teplotu pro plazy.", price: "900 Kč" },
-  { id: 6, name: "Vitamíny pro plazy", category: "Krmivo", image: "/assets/img/vitaminy.png", description: "Komplexní vitamíny pro zdraví vašeho plaza.", price: "500 Kč" },
-];
-
 export default function ProduktDetail() {
-  const { id } = useParams();
-  const product = products.find((p) => p.id === parseInt(id));
+  const { id } = useParams();  
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+   
+    fetch(`http://localhost:3000/api/products/${id}`) 
+      .then((res) => res.json())
+      .then((data) => setProduct(data))
+      .catch((err) => console.error("Chyba při načítání produktu:", err));
+  }, [id]); 
 
   if (!product) {
-    return <h2>Produkt nenalezen</h2>;
+    return <h2>Produkt nenalezen</h2>; 
   }
 
   return (
