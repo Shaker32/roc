@@ -8,6 +8,7 @@ import Kontakt from "./Kontakt";
 import Recenze from "./Recenze";
 import ONas from "./ONas";
 import Kosik from './Kosik'; 
+import ObjednavkaForm from "./ObjednavkaForm";
 
 
 
@@ -27,6 +28,9 @@ export default function AppRoutes() {
       <Route path="/recenze" element={<Recenze/>} />
       <Route path="/o-nas" element={<ONas/>} />
       <Route path="/kosik" element={<Kosik/>} />
+      <Route path="/objednavka-form" element={<ObjednavkaForm/>} />
+
+      
 
 
 

@@ -1,34 +1,43 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom"; // přidat useNavigate
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./DetailZvirete.css";
 
-import chameleonImg from "../assets/img/chameleon.png";
-import araImg from "../assets/img/ara.png";
-import leguanImg from "../assets/img/leguan.png";
-import lvicekImg from "../assets/img/lvicek.png";
-import sklipkanImg from "../assets/img/sklipkan.png";
-import skokanImg from "../assets/img/skokan.png";
-import chobotniceImg from "../assets/img/chobotniceK.png";
-
-const animals = [
-  { id: 1, name: "Chameleon", category: "Plaz", image: chameleonImg, description: "Chameleon je fascinující tvor měnící barvy.", price: "5 000 Kč" },
-  { id: 2, name: "Papoušek Ara", category: "Pták", image: araImg, description: "Barevný a inteligentní papoušek vhodný pro domácí chov.", price: "15 000 Kč" },
-  { id: 3, name: "Leguán", category: "Plaz", image: leguanImg, description: "Tropický ještěr vhodný pro zkušené chovatele.", price: "7 500 Kč" },
-  { id: 4, name: "Lvíček Zlatý", category: "Savci", image: lvicekImg, description: "Malá opička s výraznou zlatou srstí.", price: "30 000 Kč" },
-  { id: 5, name: "Sklípkan Největší", category: "Bezobratlí", image: sklipkanImg, description: "Jeden z největších pavouků na světě.", price: "2 000 Kč" },
-  { id: 6, name: "Skokan Zelený", category: "Obojživelníci", image: skokanImg, description: "Žába s krásnou zelenou barvou.", price: "1 200 Kč" },
-  { id: 7, name: "Chobotnice Kroužkovaná", category: "Vodní živočichové", image: chobotniceImg, description: "Jedna z nejjedovatějších chobotnic.", price: "50 000 Kč" },
-];
-
 export default function DetailZvirete() {
   const { id } = useParams();
-  const animal = animals.find((animal) => animal.id === parseInt(id));
+  const navigate = useNavigate(); // navigace
+  const [animal, setAnimal] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  if (!animal) {
-    return <p>Zvíře nebylo nalezeno.</p>;
-  }
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/animals/${id}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Zvíře nebylo nalezeno.");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setAnimal(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, [id]);
+
+  const handleBuy = () => {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(animal);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    navigate("/kosik");
+  };
+
+  if (loading) return <p>Načítání...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div>
@@ -39,8 +48,8 @@ export default function DetailZvirete() {
           <h2>{animal.name}</h2>
           <p><strong>Kategorie:</strong> {animal.category}</p>
           <p>{animal.description}</p>
-          <p className="price"><strong>Cena:</strong> {animal.price}</p>
-          <button className="buy-button">Koupit</button>
+          <p className="price"><strong>Cena:</strong> {animal.price} Kč</p>
+          <button className="buy-button" onClick={handleBuy}>Koupit</button>
         </div>
       </div>
       <Footer />

@@ -7,23 +7,37 @@ import "./Obchod.css";
 export default function Obchod() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const initialCategory = params.get("category") || "Vše";
+  const initialCategory = params.get("category")?.toLowerCase() || "vše";
 
   const [category, setCategory] = useState(initialCategory);
   const [animals, setAnimals] = useState([]);
 
-  
   useEffect(() => {
-    fetch("http://localhost:3000/api/animals") 
+    fetch("http://localhost:3000/api/animals")
       .then((res) => res.json())
-      .then((data) => setAnimals(data))
+      .then((data) => {
+        setAnimals(data);
+      })
       .catch((err) => console.error("Chyba při načítání zvířat:", err));
   }, []);
 
-  
-  const filteredAnimals = category === "Vše"
-    ? animals
-    : animals.filter(animal => animal.category === category);
+  const categoryOptions = [
+    { value: "vše", label: "Vše" },
+    { value: "plaz", label: "Plazi" },
+    { value: "pták", label: "Ptáci" },
+    { value: "savci", label: "Savci" },
+    { value: "bezobratlí", label: "Bezobratlí" },
+    { value: "obojživelníci", label: "Obojživelníci" },
+    { value: "vodní živočichové", label: "Vodní živočichové" },
+  ];
+
+  const filteredAnimals =
+    category === "vše"
+      ? animals
+      : animals.filter(
+          (animal) =>
+            animal.category?.toLowerCase().trim() === category.trim()
+        );
 
   return (
     <div>
@@ -33,13 +47,11 @@ export default function Obchod() {
         <div className="filter-container">
           <label>Filtr podle kategorie:</label>
           <select value={category} onChange={(e) => setCategory(e.target.value)}>
-            <option value="Vše">Vše</option>
-            <option value="Plaz">Plazi</option>
-            <option value="Pták">Ptáci</option>
-            <option value="Savci">Savci</option>
-            <option value="Bezobratlí">Bezobratlí</option>
-            <option value="Obojživelníci">Obojživelníci</option>
-            <option value="Vodní živočichové">Vodní živočichové</option>
+            {categoryOptions.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
           </select>
         </div>
         <div className="animal-list">
@@ -50,7 +62,7 @@ export default function Obchod() {
                   <img src={animal.image} alt={animal.name} />
                   <h3>{animal.name}</h3>
                   <p>{animal.category}</p>
-                  <p className="price">{animal.price}</p>
+                  <p className="price">{animal.price} Kč</p>
                 </Link>
               </div>
             ))
@@ -59,7 +71,7 @@ export default function Obchod() {
           )}
         </div>
       </div>
-      <Footer /> 
+      <Footer />
     </div>
   );
 }

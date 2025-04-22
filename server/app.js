@@ -7,10 +7,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const animalRoutes = require("./routes/animalRoutes");
 const productRoutes = require("./routes/productRoutes");
-const messageRoutes = require("./routes/messageRoutes")
+//const messageRoutes = require("./routes/message")
 
 mongoose
-.connect(`mongodb+srv://admin:adminadmin@cluster0.5o1dq.mongodb.net/rocnikovka?retryWrites=true&w=majority&appName=Cluster0`)
+.connect(`mongodb+srv://admin:adminadminadmin@cluster0.5o1dq.mongodb.net/rocnikovka?retryWrites=true&w=majority&appName=Cluster0`)
 .then(() => console.log("Database connected"))
 .catch((err) => console.log(err));
 
@@ -34,7 +34,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/api/animals", animalRoutes);
 app.use("/api/products", productRoutes);
-app.use("/api/message", messageRoutes);
+//app.use("/api/message", messageRoutes);
 
 
 // catch 404 and forward to error handler

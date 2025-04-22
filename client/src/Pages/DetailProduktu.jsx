@@ -9,15 +9,22 @@ export default function ProduktDetail() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-   
-    fetch(`http://localhost:3000/api/products/${id}`) 
+    fetch(`http://localhost:3000/api/products/${id}`)
       .then((res) => res.json())
       .then((data) => setProduct(data))
       .catch((err) => console.error("Chyba při načítání produktu:", err));
-  }, [id]); 
+  }, [id]);
 
   if (!product) {
-    return <h2>Produkt nenalezen</h2>; 
+    return (
+      <div>
+        <Header />
+        <div className="product-detail-container">
+          <h2>Produkt nenalezen</h2>
+        </div>
+        <Footer />
+      </div>
+    );
   }
 
   return (
@@ -29,7 +36,7 @@ export default function ProduktDetail() {
           <h2>{product.name}</h2>
           <p><strong>Kategorie:</strong> {product.category}</p>
           <p><strong>Popis:</strong> {product.description}</p>
-          <p><strong>Cena:</strong> {product.price}</p>
+          <p><strong>Cena:</strong> {product.price} Kč</p>
           <button className="order-button">Objednat</button>
         </div>
       </div>

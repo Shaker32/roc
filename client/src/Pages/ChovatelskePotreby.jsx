@@ -7,23 +7,35 @@ import "./ChovatelskePotreby.css";
 export default function ChovatelskePotreby() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const initialCategory = params.get("category") || "Vše";
+  const initialCategory = params.get("category")?.toLowerCase() || "vše";
 
   const [category, setCategory] = useState(initialCategory);
   const [products, setProducts] = useState([]);
 
-  
   useEffect(() => {
-    fetch("http://localhost:3000/api/products")  
+    fetch("http://localhost:3000/api/products")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error("Chyba při načítání produktů:", err));
   }, []);
 
- 
-  const filteredProducts = category === "Vše"
-    ? products
-    : products.filter(product => product.category === category);
+  const categoryOptions = [
+    { value: "vše", label: "Vše" },
+    { value: "terária", label: "Terária" },
+    { value: "klece", label: "Klece" },
+    { value: "akvária", label: "Akvária" },
+    { value: "osvětlení", label: "Osvětlení" },
+    { value: "vyhřívání", label: "Vyhřívání" },
+    { value: "krmivo", label: "Krmivo" },
+  ];
+
+  const filteredProducts =
+    category === "vše"
+      ? products
+      : products.filter(
+          (product) =>
+            product.category?.toLowerCase().trim() === category.trim()
+        );
 
   return (
     <div>
@@ -35,25 +47,23 @@ export default function ChovatelskePotreby() {
         <div className="filter-container">
           <label>Filtr podle kategorie:</label>
           <select value={category} onChange={(e) => setCategory(e.target.value)}>
-            <option value="Vše">Vše</option>
-            <option value="Terária">Terária</option>
-            <option value="Klece">Klece</option>
-            <option value="Akvária">Akvária</option>
-            <option value="Osvětlení">Osvětlení</option>
-            <option value="Vyhřívání">Vyhřívání</option>
-            <option value="Krmivo">Krmivo</option>
+            {categoryOptions.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
           </select>
         </div>
 
         <div className="product-list">
           {filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
-              <div key={product.id} className="product-card">
-                <Link to={`/produkt/${product.id}`} className="no-decoration">
+              <div key={product._id} className="product-card">
+                <Link to={`/produkt/${product._id}`} className="no-decoration">
                   <img src={product.image} alt={product.name} />
                   <h3>{product.name}</h3>
                   <p>{product.category}</p>
-                  <p className="price">{product.price}</p>
+                  <p className="price">{product.price} Kč</p>
                 </Link>
               </div>
             ))
