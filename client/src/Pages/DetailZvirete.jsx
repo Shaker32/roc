@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // přidat useNavigate
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./DetailZvirete.css";
 
 export default function DetailZvirete() {
   const { id } = useParams();
-  const navigate = useNavigate(); // navigace
+  const navigate = useNavigate();
   const [animal, setAnimal] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

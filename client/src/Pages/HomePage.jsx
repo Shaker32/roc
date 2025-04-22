@@ -1,5 +1,5 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom"; // Only import RouterLink
+import { Link as RouterLink } from "react-router-dom"; 
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./HomePage.css";
