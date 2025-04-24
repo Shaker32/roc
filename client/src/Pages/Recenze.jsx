@@ -1,24 +1,30 @@
-import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./Recenze.css";
 
 export default function ReviewsPage() {
-  const [reviews, setReviews] = useState([
-    { name: "Jana Nováková", text: "Skvělý obchod! Nákup byl rychlý a zvíře dorazilo v perfektním stavu." },
-    { name: "Petr Svoboda", text: "Profesionální přístup a široký výběr. Určitě doporučuji!" },
-    { name: "Lucie Dvořáková", text: "Můj nový papoušek je úžasný! Děkuji za skvělý servis." }
-  ]);
+  const [reviews, setReviews] = useState([]);
+  const [newReview, setNewReview] = useState({ name: "", text: "", rating: 5 });
 
-  const [newReview, setNewReview] = useState({ name: "", text: "" });
+  useEffect(() => {
+    fetch("http://localhost:3000/api/recenze")
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (newReview.name && newReview.text) {
-      setReviews([...reviews, newReview]);
-      setNewReview({ name: "", text: "" });
-    }
+    fetch("http://localhost:3000/api/recenze", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newReview),
+    })
+      .then((res) => res.json())
+      .then((savedReview) => {
+        setReviews([savedReview, ...reviews]);
+        setNewReview({ name: "", text: "", rating: 5 });
+      });
   };
 
   return (
@@ -33,6 +39,7 @@ export default function ReviewsPage() {
             <div key={index} className="review-card">
               <h3>{review.name}</h3>
               <p>{review.text}</p>
+              <p><strong>Hodnocení:</strong> {review.rating}/5</p>
             </div>
           ))}
         </div>
@@ -48,15 +55,22 @@ export default function ReviewsPage() {
               placeholder="Vaše jméno"
               required
             />
-            
             <label>Recenze:</label>
             <textarea
               value={newReview.text}
               onChange={(e) => setNewReview({ ...newReview, text: e.target.value })}
               placeholder="Vaše recenze"
               required
-            ></textarea>
-            
+            />
+            <label>Hodnocení (1–5):</label>
+            <input
+              type="number"
+              min="1"
+              max="5"
+              value={newReview.rating}
+              onChange={(e) => setNewReview({ ...newReview, rating: parseInt(e.target.value) })}
+              required
+            />
             <button type="submit">Odeslat</button>
           </form>
         </div>

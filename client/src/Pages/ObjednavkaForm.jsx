@@ -10,7 +10,7 @@ export default function Objednavka() {
     jmeno: "",
     adresa: "",
     email: "",
-    platba: "kartou",
+    platba: "kartou", 
   });
   const navigate = useNavigate();
 
@@ -88,9 +88,7 @@ export default function Objednavka() {
 
             <label>Způsob platby:</label>
             <select name="platba" value={formData.platba} onChange={handleChange}>
-              <option value="kartou">Kartou</option>
-              <option value="dobirka">Dobírka</option>
-              <option value="prevodem">Převodem</option>
+              <option value="kartou">Kartou</option> 
             </select>
 
             <button type="submit">Odeslat objednávku</button>

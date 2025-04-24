@@ -1,40 +1,50 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import "./Objednavka.css";
+import "./Shrnuti.css"; 
 
 export default function Shrnuti() {
-  const navigate = useNavigate();
-  const orderInfo = JSON.parse(localStorage.getItem("orderInfo"));
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const [cart, setCart] = useState([]);
+  const [formData, setFormData] = useState({
+    jmeno: "",
+    adresa: "",
+    email: "",
+    platba: "kartou", 
+  });
 
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    setCart(storedCart);
+  }, []);
 
-  const handleConfirm = () => {
-   
-    localStorage.removeItem("cart");
-    localStorage.removeItem("orderInfo");
-    navigate("/dekujeme");
-  };
+  const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
     <div>
       <Header />
-      <div className="order-summary-container">
-        <h2>Shrnutí objednávky</h2>
-        <p><strong>Jméno:</strong> {orderInfo.jmeno}</p>
-        <p><strong>Email:</strong> {orderInfo.email}</p>
-        <p><strong>Adresa:</strong> {orderInfo.adresa}</p>
-        <p><strong>Platba:</strong> {orderInfo.platba}</p>
+      <div className="summary-container">
+        <h2>Objednávka - Shrnutí</h2>
 
-        <h3>Produkty:</h3>
-        {cart.map((item, index) => (
-          <p key={index}>• {item.name} – {item.price} Kč</p>
-        ))}
+        <div className="order-summary">
+          <h3>Shrnutí objednávky:</h3>
+          {cart.length === 0 ? (
+            <p>Košík je prázdný.</p>
+          ) : (
+            <>
+              {cart.map((item, index) => (
+                <div key={index} className="order-item">
+                  <p>{item.name} - {item.price} Kč</p>
+                </div>
+              ))}
+              <p><strong>Celková cena:</strong> {totalPrice} Kč</p>
+            </>
+          )}
+        </div>
 
-        <h3>Celková cena: {total} Kč</h3>
-        <button onClick={handleConfirm}>Potvrdit objednávku</button>
+        <div className="payment-summary">
+          <h3>Platba:</h3>
+          <p>Platba kartou byla úspěšně provedena.</p>
+        </div>
       </div>
       <Footer />
     </div>

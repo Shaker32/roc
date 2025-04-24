@@ -7,6 +7,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const animalRoutes = require("./routes/animalRoutes");
 const productRoutes = require("./routes/productRoutes");
+const recenzeRoutes = require("./routes/recenzeRoutes");
 //const messageRoutes = require("./routes/message")
 
 mongoose
@@ -34,6 +35,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use("/api/animals", animalRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/recenze", recenzeRoutes);
 //app.use("/api/message", messageRoutes);
 
 
