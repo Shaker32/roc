@@ -19,6 +19,12 @@ export default function Kosik() {
     navigate("/objednavka-form");
   };
 
+  const handleRemove = (indexToRemove) => {
+    const updatedCart = cart.filter((_, index) => index !== indexToRemove);
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+  };
+
   return (
     <div>
       <Header />
@@ -34,6 +40,12 @@ export default function Kosik() {
                 <div>
                   <h3>{item.name}</h3>
                   <p>{item.price} Kč</p>
+                  <button 
+                    className="remove-button" 
+                    onClick={() => handleRemove(index)}
+                  >
+                    Smazat
+                  </button>
                 </div>
               </div>
             ))}

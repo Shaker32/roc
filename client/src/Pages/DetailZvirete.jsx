@@ -10,6 +10,7 @@ export default function DetailZvirete() {
   const [animal, setAnimal] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [quantity, setQuantity] = useState(1); 
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/animals/${id}`)
@@ -31,7 +32,9 @@ export default function DetailZvirete() {
 
   const handleBuy = () => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(animal);
+    for (let i = 0; i < quantity; i++) {
+      cart.push(animal);
+    }
     localStorage.setItem("cart", JSON.stringify(cart));
     navigate("/kosik");
   };
@@ -49,7 +52,23 @@ export default function DetailZvirete() {
           <p><strong>Kategorie:</strong> {animal.category}</p>
           <p>{animal.description}</p>
           <p className="price"><strong>Cena:</strong> {animal.price} Kč</p>
-          <button className="buy-button" onClick={handleBuy}>Koupit</button>
+
+          
+          <div className="quantity-select">
+            <label htmlFor="quantity">Počet kusů:</label>
+            <input
+              type="number"
+              id="quantity"
+              min="1"
+              max="99"
+              value={quantity}
+              onChange={(e) => setQuantity(parseInt(e.target.value))}
+            />
+          </div>
+
+          <button className="buy-button" onClick={handleBuy}>
+            Koupit
+          </button>
         </div>
       </div>
       <Footer />

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Recenze = require("../models/recenze");
-
+const Recenze = require("../models/recenze"); 
 
 router.get("/", async (req, res) => {
   try {
@@ -11,7 +10,6 @@ router.get("/", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
 
 router.post("/", async (req, res) => {
   const { name, text, rating } = req.body;

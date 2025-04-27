@@ -27,11 +27,12 @@ export default function Objednavka() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-   
+
     console.log("Odesláno:", { objednavka: cart, udaje: formData });
-    alert("Objednávka odeslána!");
-    localStorage.removeItem("cart");
-    navigate("/");
+    alert("Objednávka byla úspěšně odeslána! Pokračujte na platbu kartou.");
+
+   
+    navigate("/platba-kartou");
   };
 
   return (
