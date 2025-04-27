@@ -36,4 +36,4 @@ Tato ročníková práce byla zadána **10. září 2024** a byla dokončena **2
 
 1. Klonujte repozitář:
    ```bash
-   git clone https://github.com/username/eshop-chovatel.git
+   git clone https://github.com/Shaker32/roc.git
