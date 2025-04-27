@@ -7,7 +7,7 @@ Tato ročníková práce byla vytvořena jako součást mého studia na Středn�
 Projekt **ExotiX** slouží k prodeji **zvířat** a **chovatelských potřeb**. Uživatelé mohou procházet nabídku produktů a zvířat, přidávat je do košíku a objednávat. U produktů a zvířat je také implementováno filtrování dle kategorie (např. zvířata podle typu: plaz, savec apod.).
 
 ### Hlavní funkce:
-- **Zvířata a chovatelské potřeby** jsou přidávány do databáze pomocí **Postmanu**.
+- **Zvířata a chovatelské potřeby** jsou přidávány do databáze **MongoDB** pomocí **Postmanu**.
 - **Recenze** na produkty a zvířata jsou uloženy v databázi.
 - **Filtrace a upřesnění** kategorií zvířat a produktů.
 - Možnost přidávat **produkty a zvířata** do košíku.
@@ -17,11 +17,11 @@ Projekt **ExotiX** slouží k prodeji **zvířat** a **chovatelských potřeb**.
 
 - **React.js** - Pro vývoj interaktivních uživatelských rozhraní.
 - **CSS** - Pro styling a vzhled aplikace.
+- **MongoDB** - Databáze pro uložení produktů, zvířat, recenzí a dalších dat.
 - **Postman** - Pro přidání dat do databáze.
-- **Databáze** - Pro uložení produktů, zvířat a recenzí.
 
 ## Databáze
-Data o zvířatech a produktech (včetně recenzí) jsou uložena v databázi, kterou lze spravovat pomocí **Postmanu**. Zvířata i chovatelské potřeby jsou přidávány do databáze prostřednictvím API volání.
+Data o zvířatech a produktech (včetně recenzí) jsou uložena v **MongoDB** databázi, kterou lze spravovat pomocí **Postmanu**. Zvířata i chovatelské potřeby jsou přidávány do databáze prostřednictvím API volání.
 
 ## Zadání
 Tato ročníková práce byla zadána **10. září 2024** a byla dokončena **28. dubna 2025**.
