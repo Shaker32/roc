@@ -1,3 +1,4 @@
+/* Styl pro detail produktu */
 .detail-container {
   display: flex;
   flex-direction: column;
@@ -13,7 +14,7 @@
 }
 
 .detail-container img {
-  max-width: 100%;
+  max-width: 80%;
   height: auto;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -40,6 +41,20 @@
   font-weight: bold;
   color: #d9534f;
   margin-top: 10px;
+}
+
+
+.quantity-select {
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+.quantity-select input {
+  font-size: 16px;
+  padding: 8px;
+  width: 50px;
+  text-align: center;
+  margin-left: 10px;
 }
 
 .buy-button {
